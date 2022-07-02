@@ -1,0 +1,1 @@
+1) https://stackoverflow.com/questions/63187666/how-to-split-rows-into-columns-separated-by-pipe-in-pandas
