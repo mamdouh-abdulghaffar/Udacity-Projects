@@ -1,0 +1,55 @@
+/* the most popular genre ?  */
+
+SELECT G.Name AS genre,
+		count(*) AS count
+FROM Track T
+JOIN Genre G
+ON T.GenreId = G.GenreId
+GROUP BY 1
+ORDER BY 2 DESC
+
+
+___________________________________________________________________________________________________________________________________
+
+/* the Country that  most spent money ? */ 
+
+SELECT c.Country, sum(i.total) AS TotalSpent
+FROM Customer c
+JOIN Invoice i
+ON i.CustomerId = c.CustomerId
+GROUP BY 1
+ORDER BY 2 DESC
+
+___________________________________________________________________________________________________________________________________
+
+/*The number of Playlists for top 10 Bands? */ 
+
+SELECT C a.Name AS Name,
+	count(p.PlaylistId) AS Playlists
+FROM Artist a
+JOIN Album al
+ON a.ArtistId = al.ArtistId
+JOIN Track t
+ON t.AlbumId = al.AlbumId
+JOIN PlaylistTrack pt
+ON pt.TrackId = t.TrackId
+JOIN Playlist p
+ON p.PlaylistId = pt.PlaylistId
+GROUP BY 1
+ORDER BY 2 DESC
+LIMIT 10
+
+___________________________________________________________________________________________________________________________________
+
+/* Number of Songs for Media Type For songs that greater than the average of Milliseconds?*/
+
+SELECT m.Name AS MediaType,
+	count(*) AS count
+FROM 
+(SELECT *
+FROM Track 
+WHERE Milliseconds > (SELECT avg(Milliseconds) FROM Track)) t1
+JOIN MediaType m
+ON t1.MediaTypeId = m.MediaTypeId
+GROUP BY 1
+ORDER BY 2 DESC
